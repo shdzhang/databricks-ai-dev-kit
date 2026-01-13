@@ -23,7 +23,7 @@ This will:
 - Install dependencies for `databricks-tools-core` and `databricks-mcp-server`
 - Install Databricks skills to `.claude/skills/`
 - Setup MCP server config for this project in `.mcp.json` (Claude Code) and `.cursor/mcp.json` (Cursor)
-- Create `CLAUDE.md` and `AGENTS.md` with project context
+- Create `CLAUDE.md` with project context
 
 ### 2. Configure Databricks Credentials
 
