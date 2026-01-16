@@ -248,7 +248,7 @@ This separation allows you to:
 - [databricks-tools-core README](databricks-tools-core/README.md) - Core library details, all functions
 - [databricks-mcp-server README](databricks-mcp-server/README.md) - Server configuration
 - [databricks-skills README](databricks-skills/README.md) - Skills installation and usage
-- [databricks-exec-code README](https://github.com/databricks-solutions/databricks-exec-code-mcp/blob/main/README.md) - MCP command execution implementation
+- [databricks-exec-code README](https://github.com/databricks-solutions/databricks-exec-code-mcp/blob/main/README.md) - Databricks Command Execution MCP implementation and usage
 
 ## Development
 
