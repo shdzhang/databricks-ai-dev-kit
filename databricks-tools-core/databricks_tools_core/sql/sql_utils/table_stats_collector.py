@@ -327,7 +327,7 @@ class TableStatsCollector:
 
             for col_info in describe_result:
                 col_name = col_info.get("col_name", "")
-                if not col_name or col_name.startswith("#") or col_name.startswith("_"):
+                if not col_name or col_name.startswith(("#", "_")):
                     continue
 
                 data_type = col_info.get("data_type", "").lower()
@@ -336,7 +336,6 @@ class TableStatsCollector:
                 # Determine column type
                 is_numeric = any(t in data_type for t in NUMERIC_TYPES)
                 is_timestamp = "timestamp" in data_type
-                is_date = "date" in data_type and "timestamp" not in data_type
                 is_array = "array" in data_type
                 is_boolean = "boolean" in data_type
                 is_id = any(p in col_name.lower() for p in ID_PATTERNS) and (
@@ -501,7 +500,7 @@ class TableStatsCollector:
 
         for col_info in columns_info:
             col_name = col_info.get("col_name", "")
-            if not col_name or col_name.startswith("#") or col_name.startswith("_"):
+            if not col_name or col_name.startswith(("#", "_")):
                 continue
 
             seen = set()
@@ -535,7 +534,6 @@ class TableStatsCollector:
                 continue
 
             col_type = column_types.get(col_name, "categorical")
-            data_type = row.get("data_type", "unknown")
             samples = column_samples.get(col_name, [])
             approx_unique = int(row.get("unique_count") or 0) if row.get("unique_count") is not None else None
 
@@ -628,7 +626,7 @@ class TableStatsCollector:
         """Fetch exact value counts for small-cardinality columns."""
         full_table_name = f"{catalog}.{schema}.{table_name}"
 
-        for col_name, col_type in columns:
+        for col_name, _col_type in columns:
             if col_name not in column_details:
                 continue
 

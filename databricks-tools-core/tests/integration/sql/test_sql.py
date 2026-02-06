@@ -276,7 +276,7 @@ class TestExecuteSQLMulti:
             warehouse_id=warehouse_id,
         )
 
-        for idx, query_result in result["results"].items():
+        for _idx, query_result in result["results"].items():
             assert "query_index" in query_result
             assert "status" in query_result
             assert "execution_time" in query_result

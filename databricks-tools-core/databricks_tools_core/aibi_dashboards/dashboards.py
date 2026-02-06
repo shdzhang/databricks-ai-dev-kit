@@ -222,7 +222,7 @@ def publish_dashboard(
     """
     w = get_workspace_client()
 
-    result = w.lakeview.publish(
+    w.lakeview.publish(
         dashboard_id=dashboard_id,
         warehouse_id=warehouse_id,
         embed_credentials=embed_credentials,

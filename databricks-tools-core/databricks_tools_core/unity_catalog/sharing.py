@@ -190,7 +190,7 @@ def grant_share_to_recipient(
     from databricks.sdk.service.catalog import Privilege, PermissionsChange
 
     w = get_workspace_client()
-    result = w.shares.update_permissions(
+    w.shares.update_permissions(
         name=share_name,
         changes=[
             PermissionsChange(
@@ -222,7 +222,7 @@ def revoke_share_from_recipient(
     from databricks.sdk.service.catalog import Privilege, PermissionsChange
 
     w = get_workspace_client()
-    result = w.shares.update_permissions(
+    w.shares.update_permissions(
         name=share_name,
         changes=[
             PermissionsChange(

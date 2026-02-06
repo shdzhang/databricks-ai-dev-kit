@@ -163,7 +163,7 @@ class SQLExecutor:
         # Convert rows to dicts
         for row in response.result.data_array:
             if columns:
-                results.append(dict(zip(columns, row)))
+                results.append(dict(zip(columns, row, strict=False)))
             else:
                 # Fallback if no schema available
                 results.append({"values": list(row)})

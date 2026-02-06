@@ -260,7 +260,6 @@ class TestTableStatLevelSimple:
             table_stat_level=TableStatLevel.SIMPLE,
             warehouse_id=warehouse_id,
         )
-        first_time = time.time() - start
 
         # Second call (should hit cache)
         start = time.time()

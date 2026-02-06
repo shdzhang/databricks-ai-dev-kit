@@ -639,7 +639,7 @@ class AgentBricksManager:
         """
         knowledge_sources = []
 
-        for idx, (volume_path, description) in enumerate(volume_paths):
+        for idx, (volume_path, _description) in enumerate(volume_paths):
             path_parts = volume_path.rstrip("/").split("/")
             source_name = path_parts[-1] if path_parts else f"source_{idx + 1}"
             source_name = source_name.replace(" ", "_").replace(".", "_")
