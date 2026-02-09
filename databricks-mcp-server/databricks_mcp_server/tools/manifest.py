@@ -5,7 +5,7 @@ resources created across sessions.
 """
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
 from ..manifest import list_resources, remove_resource
 from ..server import mcp

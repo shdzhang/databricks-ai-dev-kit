@@ -1,10 +1,7 @@
 """Genie tools - Create, manage, and query Databricks Genie Spaces."""
 
-import os
 from datetime import timedelta
 from typing import Any, Dict, List, Optional
-
-from databricks.sdk import WorkspaceClient
 
 from databricks_tools_core.agent_bricks import AgentBricksManager
 from databricks_tools_core.auth import get_workspace_client

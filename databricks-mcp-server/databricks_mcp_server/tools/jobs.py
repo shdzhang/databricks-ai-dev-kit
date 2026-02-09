@@ -15,7 +15,6 @@ from databricks_tools_core.jobs import (
     cancel_run as _cancel_run,
     list_runs as _list_runs,
     wait_for_run as _wait_for_run,
-    JobError,
 )
 
 from ..server import mcp
