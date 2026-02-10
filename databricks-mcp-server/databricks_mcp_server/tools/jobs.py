@@ -149,6 +149,20 @@ def create_job(
         >>> job = create_job(name="my_etl_job", tasks=tasks)
         >>> print(job["job_id"])
     """
+    # Idempotency guard: check if a job with this name already exists.
+    # Prevents duplicate creation when agents retry after MCP timeouts.
+    existing_job_id = _find_job_by_name(name=name)
+    if existing_job_id is not None:
+        return {
+            "job_id": existing_job_id,
+            "already_exists": True,
+            "message": (
+                f"Job '{name}' already exists with job_id={existing_job_id}. "
+                "Returning existing job instead of creating a duplicate. "
+                "Use update_job() to modify it, or delete_job() first to recreate."
+            ),
+        }
+
     # Auto-inject default tags; user-provided tags take precedence
     merged_tags = {**get_default_tags(), **(tags or {})}
     result = _create_job(
