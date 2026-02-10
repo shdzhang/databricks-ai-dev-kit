@@ -144,7 +144,7 @@ dp.create_streaming_table("customers_history")
 
 dp.create_auto_cdc_flow(
     target="customers_history",
-    source="silver_cdc_customers",
+    source="customers_cdc",
     keys=["customer_id"],
     sequence_by="operation_date",
     apply_as_deletes=expr("operation = 'DELETE'"),
@@ -206,7 +206,7 @@ def bronze_events():
 
 ### Use Modern API (`dp`) When:
 - ✅ **Starting new project** (default choice)
-- ✅ **Learning SDP** (learn current standard)
+- ✅ **Learning SDP/LDP** (learn current standard)
 - ✅ **Want Liquid Clustering**
 - ✅ **Prefer explicit Unity Catalog paths**
 - ✅ **Following 2025 best practices**
