@@ -1,6 +1,6 @@
 ---
 name: spark-declarative-pipelines
-description: "Creates, configures, and updates Databricks Lakeflow Spark Declarative Pipelines (SDP/LDP) using serverless compute. Handles streaming tables, materialized views, CDC, SCD Type 2, and Auto Loader ingestion patterns. Use when building data pipelines, working with Delta Live Tables, ingesting streaming data, implementing change data capture, or when the user mentions SDP, LDP, DLT, Lakeflow pipelines, streaming tables, or bronze/silver/gold medallion architectures."
+description: "Creates, configures, and updates Databricks Spark Declarative Pipelines (SDP) using serverless compute. Handles streaming tables, materialized views, CDC, SCD Type 2, and Auto Loader ingestion patterns. Use when building data pipelines, working with Delta Live Tables, ingesting streaming data, implementing change data capture, or when the user mentions SDP, DLT, Lakeflow pipelines, streaming tables, or bronze/silver/gold medallion architectures."
 ---
 
 # Lakeflow Spark Declarative Pipelines (SDP)
@@ -9,7 +9,7 @@ description: "Creates, configures, and updates Databricks Lakeflow Spark Declara
 
 | Concept | Details |
 |---------|---------|
-| **Names** | SDP = Spark Declarative Pipelines = LDP = Lakeflow Declarative Pipelines = Lakeflow Pipelines (all interchangeable) |
+| **Names** | SDP = Spark Declarative Pipelines (Lakeflow Pipelines; prefer SDP in prose) |
 | **Python Import** | `from pyspark import pipelines as dp` |
 | **Primary Decorators** | `@dp.table()`, `@dp.materialized_view()` |
 | **Replaces** | Delta Live Tables (DLT) with `import dlt` |
@@ -25,6 +25,7 @@ description: "Creates, configures, and updates Databricks Lakeflow Spark Declara
 - **[Python Language Reference](https://docs.databricks.com/aws/en/ldp/developer/python-ref)** - `pyspark.pipelines` API
 - **[Loading Data](https://docs.databricks.com/aws/en/ldp/load)** - Auto Loader, Kafka, Kinesis ingestion
 - **[Change Data Capture (CDC)](https://docs.databricks.com/aws/en/ldp/cdc)** - AUTO CDC, SCD Type 1/2
+- **[create_auto_cdc_flow (Python)](https://docs.databricks.com/aws/en/ldp/developer/ldp-python-ref-apply-changes)** - CDC flow API; use string `sequence_by` and `expr()` for `apply_as_deletes` in pipelines to avoid qualifier errors
 - **[Developing Pipelines](https://docs.databricks.com/aws/en/ldp/develop)** - File structure, testing, validation
 - **[Liquid Clustering](https://docs.databricks.com/aws/en/delta/clustering)** - Modern data layout optimization
 

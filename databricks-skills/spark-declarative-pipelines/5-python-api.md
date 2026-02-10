@@ -133,26 +133,29 @@ def silver_validated():
 
 ### SCD Type 2 (AUTO CDC)
 
+**Official reference**: [create_auto_cdc_flow (Python)](https://docs.databricks.com/aws/en/ldp/developer/ldp-python-ref-apply-changes) — `sequence_by` and column lists accept string or `col()`; **arguments to `col()` cannot include qualifiers** (e.g. use `col("userId")`, not `col("source.userId")`). In pipeline isolated execution, prefer **string** for `sequence_by` and **`expr()`** for `apply_as_deletes` to avoid "The Column value must be a column identifier without any qualifier."
+
 **Modern (Recommended)**:
 ```python
-from pyspark.sql.functions import col
+from pyspark import pipelines as dp
+from pyspark.sql.functions import expr
 
 dp.create_streaming_table("customers_history")
 
 dp.create_auto_cdc_flow(
     target="customers_history",
-    source="customers_cdc",
+    source="silver_cdc_customers",
     keys=["customer_id"],
-    sequence_by=col("event_timestamp"),
-    stored_as_scd_type="2",
-    track_history_column_list=["*"]
+    sequence_by="operation_date",
+    apply_as_deletes=expr("operation = 'DELETE'"),
+    except_column_list=["operation", "operation_date"],
+    stored_as_scd_type=2,
 )
 ```
 
 **Legacy**:
 ```python
 dlt.create_streaming_table("customers_history")
-
 dlt.apply_changes(
     target="customers_history",
     source="customers_cdc",
@@ -203,7 +206,7 @@ def bronze_events():
 
 ### Use Modern API (`dp`) When:
 - ✅ **Starting new project** (default choice)
-- ✅ **Learning SDP/LDP** (learn current standard)
+- ✅ **Learning SDP** (learn current standard)
 - ✅ **Want Liquid Clustering**
 - ✅ **Prefer explicit Unity Catalog paths**
 - ✅ **Following 2025 best practices**
@@ -259,19 +262,20 @@ dlt.apply_changes(target="dim_customer", source="cdc_source", ...)
 
 **After**:
 ```python
-from pyspark.sql.functions import col
+from pyspark.sql.functions import expr
 
 dp.create_auto_cdc_flow(
     target="dim_customer",
     source="cdc_source",
     keys=["customer_id"],
-    sequence_by=col("event_timestamp"),
-    stored_as_scd_type="2",
-    track_history_column_list=["*"]
+    sequence_by="operation_date",
+    apply_as_deletes=expr("operation = 'DELETE'"),
+    except_column_list=["operation", "operation_date"],
+    stored_as_scd_type=2,
 )
 ```
 
-**Key Change**: `dlt.apply_changes()` → `dp.create_auto_cdc_flow()`
+**Key Change**: `dlt.apply_changes()` → `dp.create_auto_cdc_flow()`. Use string for `sequence_by` and `expr()` for `apply_as_deletes` in pipelines to avoid qualifier errors.
 
 ### Step 5: Update Clustering
 
