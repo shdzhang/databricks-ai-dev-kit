@@ -135,7 +135,7 @@ def silver_validated():
 
 **Official reference**: [create_auto_cdc_flow (Python)](https://docs.databricks.com/aws/en/ldp/developer/ldp-python-ref-apply-changes) — `sequence_by` and column lists accept string or `col()`; **arguments to `col()` cannot include qualifiers** (e.g. use `col("userId")`, not `col("source.userId")`). In pipeline isolated execution, prefer **string** for `sequence_by` and **`expr()`** for `apply_as_deletes` to avoid "The Column value must be a column identifier without any qualifier."
 
-**Modern (Recommended)**:
+**Modern (Recommended)** — exclude CDC metadata from the target with `except_column_list`:
 ```python
 from pyspark import pipelines as dp
 from pyspark.sql.functions import expr
@@ -149,6 +149,19 @@ dp.create_auto_cdc_flow(
     sequence_by="operation_date",
     apply_as_deletes=expr("operation = 'DELETE'"),
     except_column_list=["operation", "operation_date"],
+    stored_as_scd_type=2,
+)
+```
+
+Alternatively, include only the columns you want with `column_list`:
+```python
+dp.create_auto_cdc_flow(
+    target="customers_history",
+    source="customers_cdc",
+    keys=["customer_id"],
+    sequence_by="operation_date",
+    apply_as_deletes=expr("operation = 'DELETE'"),
+    column_list=["customer_id", "name", "email", "tier", "region"],
     stored_as_scd_type=2,
 )
 ```
