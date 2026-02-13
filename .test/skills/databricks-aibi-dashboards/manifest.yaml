@@ -1,9 +1,9 @@
-# Test Manifest for aibi-dashboards Skill
+# Test Manifest for databricks-aibi-dashboards Skill
 #
-# This manifest defines how to evaluate the aibi-dashboards skill.
+# This manifest defines how to evaluate the databricks-aibi-dashboards skill.
 # It specifies scorers, trace expectations, and quality gates.
 
-skill_name: aibi-dashboards
+skill_name: databricks-aibi-dashboards
 version: 1.0.0
 
 # Scorers evaluate different aspects of the skill's output
